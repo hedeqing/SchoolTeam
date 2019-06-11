@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="red">#ff0000</color>
     <color name="colorblue">#191970</color>
-    <color name="white">#FFC0CB</color>
     <color name="origin">#FF8C69</color>
+    <color name="titleBlue">#4876FF</color><!--天兰色 -->
+
 </resources>
