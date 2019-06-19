@@ -11,18 +11,18 @@ import android.util.Log;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.example.northuniversity.schoolteam.modules.train.TrainFragment;
-import com.example.northuniversity.schoolteam.modules.school.SchoolFragment;
-import com.example.northuniversity.schoolteam.modules.person.PersonFragment;
-import com.example.northuniversity.schoolteam.modules.sport.SportFragment;
+import com.example.northuniversity.schoolteam.modules.Recommend.RecommedFragment;
+import com.example.northuniversity.schoolteam.modules.Message.MessageFragment;
+import com.example.northuniversity.schoolteam.modules.Person.PersonFragment;
+import com.example.northuniversity.schoolteam.modules.Team.TeamFragment;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
     private ArrayList<Fragment> fragments;
     private BottomNavigationBar bottomNavigationBar;
     private Fragment medFragment;
-    private SportFragment sportFragment;
-    private TrainFragment trainFragment;
+    private TeamFragment sportFragment;
+    private RecommedFragment trainFragment;
     private PersonFragment personFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private void setDefaultFragment() {
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.layFrame, SchoolFragment.newInstance("药箱"));
+        transaction.replace(R.id.layFrame, MessageFragment.newInstance("药箱"));
         transaction.commit();
     }
 
@@ -74,19 +74,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         switch (position) {
             case 0:
                 if (medFragment == null) {
-                    medFragment = SchoolFragment.newInstance("药箱");
+                    medFragment = MessageFragment.newInstance("药箱");
                 }
                 transaction.replace(R.id.layFrame, medFragment);
                 break;
             case 1:
                 if (sportFragment == null) {
-                    sportFragment = SportFragment.newInstance("提醒");
+                    sportFragment = TeamFragment.newInstance("提醒");
                 }
                 transaction.replace(R.id.layFrame, sportFragment);
                 break;
             case 2:
                 if (trainFragment == null) {
-                    trainFragment = TrainFragment.newInstance("查询");
+                    trainFragment = RecommedFragment.newInstance("查询");
                 }
                 transaction.replace(R.id.layFrame, trainFragment);
                 break;

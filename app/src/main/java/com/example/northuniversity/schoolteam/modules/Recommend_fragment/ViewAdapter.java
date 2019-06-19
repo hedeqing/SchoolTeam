@@ -1,4 +1,4 @@
-package com.example.northuniversity.schoolteam.modules.train_fragment;
+package com.example.northuniversity.schoolteam.modules.Recommend_fragment;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

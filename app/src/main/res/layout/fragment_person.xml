@@ -6,16 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".modules.person.PersonActivity">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        >
-    </android.support.v7.widget.Toolbar>
+    tools:context=".modules.Person.PersonActivity">
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+        <!--&gt;-->
+    <!--</android.support.v7.widget.Toolbar>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -30,7 +31,7 @@
             android:layout_height="96dp"
             android:src="@drawable/ic_person"
             app:civ_border_color="#FFFFFF"
-            android:rotation="270"
+            android:rotation="0"
             app:civ_border_width="2dp" />
         <LinearLayout
             android:layout_width="match_parent"

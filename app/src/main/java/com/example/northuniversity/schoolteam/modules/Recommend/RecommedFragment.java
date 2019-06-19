@@ -1,4 +1,4 @@
-package com.example.northuniversity.schoolteam.modules.train;
+package com.example.northuniversity.schoolteam.modules.Recommend;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,35 +13,38 @@ import android.widget.TextView;
 
 import com.example.northuniversity.schoolteam.R;
 import com.example.northuniversity.schoolteam.base.BaseFragment;
-import com.example.northuniversity.schoolteam.modules.train_fragment.FragmentAdapter;
-import com.example.northuniversity.schoolteam.modules.train_fragment.FunFragment;
-import com.example.northuniversity.schoolteam.modules.train_fragment.FuzzySearchFragment;
-import com.example.northuniversity.schoolteam.modules.train_fragment.ViewAdapter;
+import com.example.northuniversity.schoolteam.modules.Recommend_fragment.FirstFragment;
+import com.example.northuniversity.schoolteam.modules.Recommend_fragment.FourthFragment;
+import com.example.northuniversity.schoolteam.modules.Recommend_fragment.FragmentAdapter;
+import com.example.northuniversity.schoolteam.modules.Recommend_fragment.SecondFragment;
+import com.example.northuniversity.schoolteam.modules.Recommend_fragment.ThirdFragment;
+import com.example.northuniversity.schoolteam.modules.Recommend_fragment.ViewAdapter;
 
-
-import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class TrainFragment extends BaseFragment {
+public class RecommedFragment extends BaseFragment {
     private boolean isPrepared;
     private TabLayout tabLayout = null;
     private List<View> listViews;
     private List<Fragment> list_fragment;
     private ViewPager viewPager = null;
     private  List<String>  tabName = null;
-    private  View funView = null;
-    private View fuzzySearchView = null;
+    private  View firstView = null;
+    private View secondView = null;
+    private  View thirdView  = null;
+    private  View fourthView  = null;
 
     private ViewAdapter vAdapter;                                         //定义以view为切换的adapter
     private FragmentAdapter fAdapter;
 
-    private FunFragment funFragment = null;
-    private FuzzySearchFragment fuzzySearchFragment = null;
-
+    private FirstFragment firstFragment = null;
+    private SecondFragment secondSearchFragment = null;
+    private ThirdFragment thirdFragment = null;
+    private FourthFragment fourthFragment = null;
 
     private int[] tabImg;
     /**
@@ -54,7 +57,7 @@ public class TrainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mView == null) {
             // 需要inflate一个布局文件 填充Fragment
-            mView = inflater.inflate(R.layout.activity_train, container, false);
+            mView = inflater.inflate(R.layout.fragment_recommend, container, false);
             initView();
             isPrepared = true;
 //        实现懒加载
@@ -85,7 +88,7 @@ public class TrainFragment extends BaseFragment {
         viewPager = getActivity().findViewById(R.id.viewPager);
 
         //为tabLayout上的图标赋值
-        tabImg = new int[]{R.drawable.ic_back,R.drawable.ic_code};
+        tabImg = new int[]{R.drawable.ic_code,R.drawable.ic_code,R.drawable.ic_code,R.drawable.ic_code};
         Log.i(TAG, "initControls: is evoke");
 
     }
@@ -94,14 +97,22 @@ public class TrainFragment extends BaseFragment {
         listViews = new ArrayList<>();
         LayoutInflater mInflater = getLayoutInflater();
 
-        fuzzySearchView = mInflater.inflate(R.layout.fragment_search, null);
-        funView = mInflater.inflate(R.layout.fragment_fun, null);
-        listViews.add(fuzzySearchView);
-        listViews.add(funView);
+        secondView = mInflater.inflate(R.layout.fragment_second, null);
+        firstView = mInflater.inflate(R.layout.fragment_first, null);
+        thirdView = mInflater.inflate(R.layout.fragment_third, null);
+        fourthView = mInflater.inflate(R.layout.fragment_fourth, null);
+        listViews.add(secondView);
+        listViews.add(firstView);
+        listViews.add(thirdView);
+        listViews.add(fourthView);
+
 
         tabName = new ArrayList<>();
-        tabName.add("搜索");
-        tabName.add("寻找");
+        tabName.add("大一");
+        tabName.add("大二");
+        tabName.add("大三");
+        tabName.add("大四");
+
 
         //设置TabLayout的模式,这里主要是用来显示tab展示的情况的
         //TabLayout.MODE_FIXED          各tab平分整个工具栏,如果不设置，则默认就是这个值
@@ -115,6 +126,8 @@ public class TrainFragment extends BaseFragment {
         //为TabLayout添加tab名称
         tabLayout.addTab(tabLayout.newTab().setText(tabName.get(0)));
         tabLayout.addTab(tabLayout.newTab().setText(tabName.get(1)));
+        tabLayout.addTab(tabLayout.newTab().setText(tabName.get(2)));
+        tabLayout.addTab(tabLayout.newTab().setText(tabName.get(3)));
 
 
         vAdapter = new ViewAdapter(getContext(),listViews,tabName,tabImg);
@@ -132,16 +145,21 @@ public class TrainFragment extends BaseFragment {
     {
         list_fragment = new ArrayList<>();
 
-        funFragment = new FunFragment();
-        fuzzySearchFragment = new FuzzySearchFragment();
+        firstFragment = new FirstFragment();
+        secondSearchFragment = new SecondFragment();
+        thirdFragment = new ThirdFragment();
+        fourthFragment = new FourthFragment();
 
-
-        list_fragment.add(funFragment);
-        list_fragment.add(fuzzySearchFragment);
+        list_fragment.add(firstFragment);
+        list_fragment.add(secondSearchFragment);
+        list_fragment.add(thirdFragment);
+        list_fragment.add(fourthFragment);
 
         tabName = new ArrayList<>();
-        tabName.add("搜索");
-        tabName.add("寻找");
+        tabName.add("大一");
+        tabName.add("大二");
+        tabName.add("大三");
+        tabName.add("大四");
 
         fAdapter = new FragmentAdapter(getChildFragmentManager(),list_fragment,tabName);
         viewPager.setAdapter(fAdapter);
@@ -160,8 +178,8 @@ public class TrainFragment extends BaseFragment {
         //填充各控件的数据
         mHasLoadedOnce = true;
     }
-    public static TrainFragment newInstance(String param1) {
-        TrainFragment fragment = new TrainFragment();
+    public static RecommedFragment newInstance(String param1) {
+        RecommedFragment fragment = new RecommedFragment();
         Bundle args = new Bundle();
         args.putString("agrs1", param1);
         fragment.setArguments(args);

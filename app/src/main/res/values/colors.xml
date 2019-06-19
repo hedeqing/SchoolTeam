@@ -6,6 +6,12 @@
     <color name="red">#ff0000</color>
     <color name="colorblue">#191970</color>
     <color name="origin">#FF8C69</color>
+    <color name="white">#FFFFFF</color>
     <color name="titleBlue">#4876FF</color><!--天兰色 -->
+    <color name="color_primary_red">#f44336</color>
+    <color name="color_primary_red_dark">#d32f2f</color>
+    <color name="color_primary_green"> #4caf50</color>
+    <color name="color_primary_green_dark">#388e3c</color>
+    <color name="color_shadow">#44000000</color>
 
 </resources>
