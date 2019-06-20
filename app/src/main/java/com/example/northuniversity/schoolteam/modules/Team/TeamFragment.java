@@ -1,44 +1,26 @@
 package com.example.northuniversity.schoolteam.modules.Team;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.Indicators.PagerIndicator;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.example.northuniversity.schoolteam.MainActivity;
 import com.example.northuniversity.schoolteam.R;
 import com.example.northuniversity.schoolteam.base.BaseFragment;
+import com.example.northuniversity.schoolteam.modules.Team.tools.GlideImageLoader;
 import com.example.northuniversity.schoolteam.modules.Team.tools.MyAdapter;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import static com.example.northuniversity.schoolteam.R.drawable.ic_back;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class TeamFragment extends BaseFragment  {
     private boolean isPrepared;
@@ -48,6 +30,9 @@ public class TeamFragment extends BaseFragment  {
     private boolean mHasLoadedOnce;
     private XRecyclerView mRecyclerView;
     private MyAdapter mAdapter;
+    private Banner banner = null;
+    List<Integer> images = null;
+
 
     // 存储数据
     private List<String> dataList = new ArrayList<>();
@@ -57,6 +42,7 @@ public class TeamFragment extends BaseFragment  {
 
     private List<Integer> typeList=new ArrayList<>();
 
+    private ScheduledExecutorService scheduledExecutorService;
 
     @Nullable
     @Override
@@ -64,7 +50,6 @@ public class TeamFragment extends BaseFragment  {
         if (mView == null) {
             // 需要inflate一个布局文件 填充Fragment
             mView = inflater.inflate(R.layout.fragment_team, container, false);
-            initView();
             isPrepared = true;
 //        实现懒加载
             lazyLoad();
@@ -83,10 +68,6 @@ public class TeamFragment extends BaseFragment  {
         super.onResume();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -94,7 +75,7 @@ public class TeamFragment extends BaseFragment  {
         mRecyclerView = getActivity().findViewById(R.id.recyclerview);
         mAdapter = new MyAdapter(getContext(), dataList);
 
-        // XRecyclerView的使用，和RecyclerView几乎一致
+        //  XRecyclerView的使用，和RecyclerView几乎一致
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -109,6 +90,8 @@ public class TeamFragment extends BaseFragment  {
 
         // 添加数据
         mAdapter.addtData(testList());
+
+
 
         // 添加刷新和加载更多的监听
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -126,7 +109,7 @@ public class TeamFragment extends BaseFragment  {
 
             @Override
             public void onLoadMore() {
-                mAdapter.addtData(testList());
+               mAdapter.addtData(testList());
                 // 为了看效果，加了一个等待效果，正式的时候直接写mRecyclerView.loadMoreComplete();
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -136,13 +119,20 @@ public class TeamFragment extends BaseFragment  {
                 }, 2000);
             }
         });
+
+      //  initView();
+
     }
 
     /**
      * 初始化控件
      */
     private void initView() {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_xrecycler,null);
 
+        banner = view.findViewById(R.id.banner);
+        //使用viewpager搭建广告轮播
+        initBanner(banner);
     }
 
     @Override
@@ -169,4 +159,37 @@ public class TeamFragment extends BaseFragment  {
         mytest.add("test"+ System.currentTimeMillis());
         return mytest;
     }
+    @Override
+    public void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        // TODO Auto-generated method stub
+        super.onStop();
+        if(scheduledExecutorService != null){
+            scheduledExecutorService.shutdown();
+            scheduledExecutorService = null;
+        }
+    }
+    private  void initBanner(Banner banner){
+        images = new ArrayList<>();
+        images.add(R.drawable.a);
+        images.add(R.drawable.b);
+        images.add(R.drawable.c);
+        images.add(R.drawable.d);
+        banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(images);
+        //设置轮播时间
+        banner.setDelayTime(2000);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
+
+    }
+
 }

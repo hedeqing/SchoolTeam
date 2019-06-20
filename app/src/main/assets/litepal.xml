@@ -5,6 +5,6 @@
     <version value="1" />
 
     <list >
-        <mapping  class = "com.example.northuniversity.schoolteam.Database.Users"/>
+        <mapping  class = "com.example.northuniversity.schoolteam.Bean.Users"/>
     </list>
 </litepal>

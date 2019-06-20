@@ -1,4 +1,4 @@
-package com.example.northuniversity.schoolteam.Database;
+package com.example.northuniversity.schoolteam.Bean;
 
 import org.litepal.crud.LitePalSupport;
 
