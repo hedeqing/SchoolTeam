@@ -29,5 +29,11 @@
         <item name="overlapAnchor">false</item>
     </style>
 
-
+    <declare-styleable name="CustomImageView">
+        <attr name="type">
+            <enum name="circle" value="0" />
+            <enum name="round" value="1" />
+        </attr>
+        <attr name="radius" format="integer" />
+    </declare-styleable>
 </resources>

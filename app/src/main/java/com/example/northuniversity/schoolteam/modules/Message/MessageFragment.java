@@ -3,6 +3,9 @@ package com.example.northuniversity.schoolteam.modules.Message;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ public class MessageFragment extends BaseFragment {
      */
     private boolean mHasLoadedOnce;
     TextView textView;
+    private Toolbar messageTb= null;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,6 +41,21 @@ public class MessageFragment extends BaseFragment {
 
         return mView;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        messageTb = getActivity().findViewById(R.id.message_toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(messageTb);
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);//设置返回键可用，如果某个页面想隐藏掉返回键比如首页，可以调用mToolbar.setNavigationIcion(null);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
     /**
      * 初始化控件
      */

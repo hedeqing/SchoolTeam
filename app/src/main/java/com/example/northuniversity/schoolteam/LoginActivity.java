@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static java.lang.Thread.sleep;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,7 +59,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mPsw.setVisibility(View.INVISIBLE);
 
         inputAnimator(mInputLayout, mWidth, mHeight);
-
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**

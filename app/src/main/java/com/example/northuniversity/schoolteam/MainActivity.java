@@ -2,6 +2,7 @@ package com.example.northuniversity.schoolteam;
 
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,9 +21,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
     private ArrayList<Fragment> fragments;
     private BottomNavigationBar bottomNavigationBar;
-    private Fragment medFragment;
-    private TeamFragment sportFragment;
-    private RecommedFragment trainFragment;
+    private Fragment messageFragment;
+    private TeamFragment teamFragment;
+    private RecommedFragment recommendFragment;
     private PersonFragment personFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -32,9 +33,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
-
         init();
 
     }
@@ -48,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         //添加并设置图标、图标的颜色和文字
         bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_school_down, "校园")).setActiveColor(R.color.red)
-                .addItem(new BottomNavigationItem(R.drawable.ic_sport, "运动")).setActiveColor(R.color.colorPrimary)
-                .addItem(new BottomNavigationItem(R.drawable.ic_train, "出行")).setActiveColor(R.color.red)
+                .addItem(new BottomNavigationItem(R.drawable.ic_team, "组队")).setActiveColor(R.color.red)
+                .addItem(new BottomNavigationItem(R.drawable.ic_message, "消息")).setActiveColor(R.color.colorPrimary)
+                .addItem(new BottomNavigationItem(R.drawable.ic_recommended, "推荐")).setActiveColor(R.color.red)
                 .addItem(new BottomNavigationItem(R.drawable.ic_person, "个人")).setActiveColor(R.color.colorPrimary)
                 .setFirstSelectedPosition(lastSelectedPosition )
                 .initialise();
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private void setDefaultFragment() {
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.layFrame, MessageFragment.newInstance("药箱"));
+        transaction.replace(R.id.layFrame, TeamFragment.newInstance("消息"));
         transaction.commit();
     }
 
@@ -73,22 +72,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         transaction = fragmentManager.beginTransaction();
         switch (position) {
             case 0:
-                if (medFragment == null) {
-                    medFragment = MessageFragment.newInstance("药箱");
+                if (teamFragment == null) {
+                    teamFragment = TeamFragment.newInstance("组队");
                 }
-                transaction.replace(R.id.layFrame, medFragment);
+                transaction.replace(R.id.layFrame, teamFragment);
                 break;
             case 1:
-                if (sportFragment == null) {
-                    sportFragment = TeamFragment.newInstance("提醒");
+
+                if (messageFragment == null) {
+                    messageFragment = MessageFragment.newInstance("消息");
                 }
-                transaction.replace(R.id.layFrame, sportFragment);
+                transaction.replace(R.id.layFrame, messageFragment);
                 break;
             case 2:
-                if (trainFragment == null) {
-                    trainFragment = RecommedFragment.newInstance("查询");
+                if (recommendFragment == null) {
+                    recommendFragment = RecommedFragment.newInstance("推荐");
                 }
-                transaction.replace(R.id.layFrame, trainFragment);
+                transaction.replace(R.id.layFrame, recommendFragment);
                 break;
             case 3:
                 if (personFragment == null) {

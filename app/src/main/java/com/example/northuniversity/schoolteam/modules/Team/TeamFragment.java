@@ -1,17 +1,28 @@
 package com.example.northuniversity.schoolteam.modules.Team;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.northuniversity.schoolteam.R;
 import com.example.northuniversity.schoolteam.base.BaseFragment;
-import com.example.northuniversity.schoolteam.modules.Team.tools.GlideImageLoader;
+
+import com.example.northuniversity.schoolteam.modules.Team.Inside_activity.ReleaseActivity;
 import com.example.northuniversity.schoolteam.modules.Team.tools.MyAdapter;
+import com.example.northuniversity.schoolteam.modules.Team_Fragment.GameFragment;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
@@ -30,17 +41,13 @@ public class TeamFragment extends BaseFragment  {
     private boolean mHasLoadedOnce;
     private XRecyclerView mRecyclerView;
     private MyAdapter mAdapter;
-    private Banner banner = null;
-    List<Integer> images = null;
 
+    private TextView titleTv = null;
+    private SearchView headeSv = null;
+    private Button sendBtn = null;
 
     // 存储数据
     private List<String> dataList = new ArrayList<>();
-    private ArrayList listData;
-
-    private int refreshTime = 0;
-
-    private List<Integer> typeList=new ArrayList<>();
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -50,6 +57,8 @@ public class TeamFragment extends BaseFragment  {
         if (mView == null) {
             // 需要inflate一个布局文件 填充Fragment
             mView = inflater.inflate(R.layout.fragment_team, container, false);
+
+
             isPrepared = true;
 //        实现懒加载
             lazyLoad();
@@ -97,7 +106,7 @@ public class TeamFragment extends BaseFragment  {
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                mAdapter.setData(testList());
+               // mAdapter.setData(testList());
                 // 为了看效果，加了一个等待效果，正式的时候直接写mRecyclerView.refreshComplete();
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -109,7 +118,7 @@ public class TeamFragment extends BaseFragment  {
 
             @Override
             public void onLoadMore() {
-               mAdapter.addtData(testList());
+               //mAdapter.addtData(testList());
                 // 为了看效果，加了一个等待效果，正式的时候直接写mRecyclerView.loadMoreComplete();
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -121,6 +130,23 @@ public class TeamFragment extends BaseFragment  {
         });
 
       //  initView();
+            mAdapter.setOnMeanCallBack(new MyAdapter.onMeanCallBack() {
+                @Override
+                public void isDisMess(Intent intent) {
+                    startActivity(intent);
+
+                }
+            });
+
+            sendBtn = getActivity().findViewById(R.id.team_fragment_header_title_btn);
+            sendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ReleaseActivity.class);
+                    startActivity(intent);
+                }
+            });
+            initView();
 
     }
 
@@ -128,11 +154,7 @@ public class TeamFragment extends BaseFragment  {
      * 初始化控件
      */
     private void initView() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_xrecycler,null);
 
-        banner = view.findViewById(R.id.banner);
-        //使用viewpager搭建广告轮播
-        initBanner(banner);
     }
 
     @Override
@@ -161,35 +183,13 @@ public class TeamFragment extends BaseFragment  {
     }
     @Override
     public void onStart() {
-        // TODO Auto-generated method stub
         super.onStart();
     }
 
     @Override
     public void onStop() {
-        // TODO Auto-generated method stub
         super.onStop();
-        if(scheduledExecutorService != null){
-            scheduledExecutorService.shutdown();
-            scheduledExecutorService = null;
-        }
     }
-    private  void initBanner(Banner banner){
-        images = new ArrayList<>();
-        images.add(R.drawable.a);
-        images.add(R.drawable.b);
-        images.add(R.drawable.c);
-        images.add(R.drawable.d);
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置轮播时间
-        banner.setDelayTime(2000);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
 
-    }
 
 }
