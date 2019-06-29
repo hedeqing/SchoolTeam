@@ -59,20 +59,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         leon:leftIcon="@drawable/ic_person"
-        leon:leftText="钱包" />
+        leon:leftText="签名" />
 
     <com.leon.lib.settingview.LSettingItem
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         leon:leftIcon="@drawable/ic_person"
-        leon:leftText="紧急联系人" />
+        leon:leftText="好友" />
 
     <com.leon.lib.settingview.LSettingItem
         android:id="@+id/item_five"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         leon:leftIcon="@drawable/ic_person"
-        leon:leftText="性别" />
+        leon:leftText="修改个人信息" />
 
     <com.leon.lib.settingview.LSettingItem
         android:id="@+id/item_six"
@@ -80,8 +80,9 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme"
         leon:leftIcon="@drawable/ic_person"
-        leon:rightStyle="iconSwitch"
+
         leon:leftText="安全" />
+    <!--leon:rightStyle="iconSwitch"-->
 
 
 </LinearLayout>

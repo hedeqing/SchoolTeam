@@ -13,6 +13,15 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.Toolbar>
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -22,6 +31,7 @@
             android:layout_height="wrap_content"
             android:text="请输入相关信息"/>
         <EditText
+            android:id="@+id/descriptEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="活动描述"
@@ -29,6 +39,7 @@
             android:minLines="3"
           />
         <Button
+            android:id="@+id/add_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="添加封面"/>
@@ -47,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="开始时间："/>
             <EditText
+                android:id="@+id/start_time_send"
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="截至时间："/>
             <EditText
+                android:id="@+id/end_time_Et"
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,6 +90,7 @@
                android:layout_height="wrap_content"
                android:text="地点："/>
            <EditText
+               android:id="@+id/location_send"
                android:layout_width="match_parent"
                android:inputType="textMultiLine"
                android:minLines="3"
@@ -91,17 +105,62 @@
                 android:layout_height="wrap_content"
                 android:text="费用说明"/>
             <EditText
+                android:id="@+id/fare_description_Et"
                 android:layout_width="match_parent"
                 android:inputType="textMultiLine"
                 android:minLines="3"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioGroup
+                    android:id="@+id/send_rg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:tag="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="游戏"/>
+
+                        <RadioButton
+                            android:tag="2"
+                            android:text="学习"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+
+
+
+
+
+                        <RadioButton
+                            android:tag="3"
+                            android:layout_width="wrap_content"
+                            android:text="比赛"
+                            android:layout_height="match_parent" />
+
+
+                        <RadioButton
+                            android:tag="4"
+                            android:text="出行"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
     <Button
-        android:layout_marginTop="140dp"
+        android:id="@+id/send_team"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="wrap_content"
-        android:text="发布"
+        android:text="立即发布"
         />
 
 </LinearLayout>

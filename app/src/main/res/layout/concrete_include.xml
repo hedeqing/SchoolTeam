@@ -72,11 +72,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="活动时间:"/>
         <TextView
+            android:id="@+id/time_team"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,6 +94,7 @@
             android:layout_height="wrap_content"
             android:text="活动地点:"/>
         <TextView
+            android:id="@+id/location_team"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,6 +112,8 @@
         android:text="费用说明："
         />
     <TextView
+        android:id="@+id/fare_team"
+
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

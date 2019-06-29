@@ -1,5 +1,6 @@
 package com.example.northuniversity.schoolteam.modules.Message;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,8 @@ public class MessageFragment extends BaseFragment {
     private boolean mHasLoadedOnce;
     TextView textView;
     private Toolbar messageTb= null;
+    private  TextView chatTv = null;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,20 +50,28 @@ public class MessageFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         messageTb = getActivity().findViewById(R.id.message_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(messageTb);
+        chatTv = getActivity().findViewById(R.id.chat_tv);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);//设置返回键可用，如果某个页面想隐藏掉返回键比如首页，可以调用mToolbar.setNavigationIcion(null);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);//设置返回键可用，如果某个页面想隐藏掉返回键比如首页，可以调用mToolbar.setNavigationIcion(null);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        chatTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ChatActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
      * 初始化控件
      */
     private void initView() {
-
+        chatTv = getActivity().findViewById(R.id.chat_tv);
     }
 
     @Override

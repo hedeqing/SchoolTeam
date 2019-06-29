@@ -1,6 +1,5 @@
 package com.example.northuniversity.schoolteam;
 
-
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;

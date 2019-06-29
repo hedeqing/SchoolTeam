@@ -5,10 +5,10 @@
     android:gravity="center_vertical"
     android:padding="10dip" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_back" />
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/ic_back" />-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,6 +16,7 @@
         android:textColor="#ffffff"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:id="@+id/sign_up"
         android:textSize="20sp"
         android:text="Sign up"
         />

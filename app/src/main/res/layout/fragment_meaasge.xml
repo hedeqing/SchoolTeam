@@ -85,6 +85,7 @@
                             android:src="@drawable/ic_circle"/>
 
                         <TextView
+                            android:id="@+id/chat_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -99,7 +100,6 @@
                     android:orientation="vertical"
                     android:paddingTop="45dp"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="match_parent"
