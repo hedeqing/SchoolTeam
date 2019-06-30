@@ -8,6 +8,7 @@ import android.support.constraint.Constraints;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import com.example.northuniversity.schoolteam.modules.Recommend_fragment.SecondF
 import com.example.northuniversity.schoolteam.modules.Recommend_fragment.ThirdFragment;
 import com.example.northuniversity.schoolteam.modules.Recommend_fragment.ViewAdapter;
 import com.example.northuniversity.schoolteam.utils.HttpUtils;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,7 +63,7 @@ public class RecommedFragment extends BaseFragment {
     private ThirdFragment thirdFragment = null;
     private FourthFragment fourthFragment = null;
 
-    private RecyclerView mRecyclerView = null;
+    private XRecyclerView mRecyclerView = null;
     private RecommendContestAdapter recommendContestAdapter = null;
 
 
@@ -95,6 +98,16 @@ public class RecommedFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         initView();
         fragmentChange();
+        mRecyclerView.setLoadingMoreEnabled(true);
+        //  XRecyclerView的使用，和RecyclerView几乎一致
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        // 可以设置加载更多的样式，很多种
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        // 如果设置上这个，下拉刷新的时候会显示上次刷新的时间
+        mRecyclerView.getDefaultRefreshHeaderView() // get default refresh header view
+                .setRefreshTimeVisible(true);  // make refresh time visible,false means hiding
     }
 
 
@@ -104,7 +117,7 @@ public class RecommedFragment extends BaseFragment {
     private void initView() {
         tabLayout = getActivity().findViewById(R.id.tabLayout);
         viewPager = getActivity().findViewById(R.id.viewPager);
-
+        mRecyclerView = getActivity().findViewById(R.id.recommend_fragment_xrv);
         //为tabLayout上的图标赋值
         tabImg = new int[]{R.drawable.ic_code, R.drawable.ic_code, R.drawable.ic_code, R.drawable.ic_code};
         Log.i(TAG, "initControls: is evoke");

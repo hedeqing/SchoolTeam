@@ -1,6 +1,9 @@
 package com.example.northuniversity.schoolteam.modules.Team.Inside_activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -16,13 +19,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.northuniversity.schoolteam.R;
-import com.example.northuniversity.schoolteam.SignUpActivity;
 import com.example.northuniversity.schoolteam.utils.HttpUtils;
+import com.example.northuniversity.schoolteam.utils.SaveUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ReleaseActivity extends AppCompatActivity {
+import static org.litepal.LitePalApplication.getContext;
+
+public class ReleaseActivity extends AppCompatActivity  {
     private Toolbar toolbar = null;
     private Button sendBtn = null;
     private EditText descriptEt = null;
@@ -41,13 +46,24 @@ public class ReleaseActivity extends AppCompatActivity {
     private String result;
     private String status;
     private String category;
+    private String team_id_id;
     private String TAG = "ReleaseActivity";
 
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
+
+        team_id_id = SaveUtils.getSettingNote(getContext(), "userInfo", "number");
+        Log.d(TAG, "onCreate: releaseActivity"+team_id_id);
 
         toolbar = findViewById(R.id.release_toolbar);
         sendBtn = findViewById(R.id.send_team);
@@ -82,7 +98,7 @@ public class ReleaseActivity extends AppCompatActivity {
                 endTime = startTimeEt.getText().toString();
                 location = locationEt.getText().toString();
                 fareDescription = fareDescriptionEt.getText().toString();
-                releaseTeam(description, startTime, endTime, location, fareDescription,category);
+                releaseTeam(team_id_id,description, startTime, endTime, location, fareDescription,category);
             }
         });
         sendRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -99,17 +115,18 @@ public class ReleaseActivity extends AppCompatActivity {
 
     }
 
-    private void releaseTeam(final String description, final String startTime, final String endTime, final String location, final String fareDescription, final String category) {
+    private void releaseTeam(final String team_id_id, final String description, final String startTime, final String endTime, final String location, final String fareDescription, final String category) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 String url = "http://10.0.2.2:8000/release_team/";
-                String params = "description=" + description + "&" + "startTime=" + startTime + "&" + "endTime=" + endTime + "&" + "location=" + location + "fareDescription=" + fareDescription+"category="+category;
+                String params = "team_id="+team_id_id+"&"+"description=" + description + "&" + "startTime=" + startTime + "&" + "endTime=" + endTime + "&" + "location=" + location +"&"+ "fareDescription=" + fareDescription +"&"+"category="+category;
                 result = HttpUtils.sendPostRequest(url, params);
 
                 JSONObject jsonObject2 = null;
                 try {
                     jsonObject2 = new JSONObject(result);
+                    Log.d(TAG, "run1111: result "+result);
                     JSONObject classjson = jsonObject2.getJSONObject("stata");//获取JSON对象中的JSON
                     status = classjson.getString("status");
                 } catch (JSONException e) {
@@ -126,12 +143,11 @@ public class ReleaseActivity extends AppCompatActivity {
             }
         }).start();
 
-
     }
 
     Handler handler = new Handler() {
         public void handleMessage(final Message message) {
-            if (message.what == 2) {
+            if (message.what == 8) {
                 status = message.getData().getString("status");
                 if (status.equals("1")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ReleaseActivity.this);

@@ -42,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></LinearLayout>
     <Button
+        android:id="@+id/send_recommend_team"
         android:background="@color/color_shadow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

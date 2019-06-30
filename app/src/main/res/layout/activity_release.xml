@@ -125,11 +125,11 @@
                             android:tag="1"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="游戏"/>
+                            android:text="game"/>
 
                         <RadioButton
                             android:tag="2"
-                            android:text="学习"
+                            android:text="study"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent" />
 
@@ -141,13 +141,13 @@
                         <RadioButton
                             android:tag="3"
                             android:layout_width="wrap_content"
-                            android:text="比赛"
+                            android:text="contest"
                             android:layout_height="match_parent" />
 
 
                         <RadioButton
                             android:tag="4"
-                            android:text="出行"
+                            android:text="traval"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent" />
 

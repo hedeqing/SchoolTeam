@@ -75,6 +75,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
     private List<String> location = new ArrayList<>();
     private List<String> fare = new ArrayList<>();
     private List<String> favor_quantity = new ArrayList<>();
+    private List<String> capture = new ArrayList<>();
 
 
     public List<Integer> images = new ArrayList<>();
@@ -243,6 +244,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
             List<String> location_i = new ArrayList<>();
             List<String> fare_i = new ArrayList<>();
             List<String> favor_quantity_i = new ArrayList<>();
+            List<String> capture_i = new ArrayList<>();
             if (message.what == 3) {
                 result = message.getData().getString("result");
 
@@ -261,6 +263,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
                         end_time_i.add(jsonObject1.getString("end_time"));
                         location_i.add(jsonObject1.getString("location"));
                         fare_i.add(jsonObject1.getString("fare"));
+                        capture_i.add(jsonObject1.getString("team_id_id"));
                         favor_quantity_i.add(jsonObject1.getString("favor_quantity"));
                     }
                     team_id = team_i;
@@ -274,6 +277,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
                     location = location_i;
                     fare = fare_i;
                     favor_quantity = favor_quantity_i;
+                    capture = capture_i;
 
                     Log.d(ContentValues.TAG, "run: idList" + team_id);
                     Log.d(ContentValues.TAG, "run: startTime" + start_time);

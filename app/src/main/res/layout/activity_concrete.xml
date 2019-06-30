@@ -83,6 +83,7 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/join_team"
         android:background="@color/color_shadow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

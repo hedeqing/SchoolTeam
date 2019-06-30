@@ -5,8 +5,10 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -23,8 +25,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.example.northuniversity.schoolteam.modules.Team.Inside_activity.ReleaseActivity;
+import com.example.northuniversity.schoolteam.utils.HttpUtils;
+import com.example.northuniversity.schoolteam.utils.SaveUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -33,7 +41,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
+import static android.support.constraint.Constraints.TAG;
 import static java.lang.Thread.sleep;
 
 
@@ -57,6 +69,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText numberEt = null;
 
     private EditText passwordEt = null;
+    private String result;
+    private String my_username;
+    private  String  my_dynamic;
+    private  String my_avator;
+    private String my_gender;
+    private  String my_number;
+    private  String my_password;
+
 
     private String TAG = "LoginACtivity";
 
@@ -100,10 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                inputAnimator(mInputLayout, mWidth, mHeight);
                 Judge_login(number,password);
                 //发送广播，number唯一判断
-//                Intent intent1 = new Intent();
-//                intent1.setAction("android.intent.action.ACTION_POWER_CONNECTED");
-//                intent1.putExtra("number", number);
-//                sendBroadcast(intent1);
+
                 //接收广播
 //                Intent intent = new Intent();
 //                String action = intent.getAction();
@@ -207,44 +224,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try {
                     int c;
                     String param = "号码=" + number + "&" + "密码=" + password;
-                    Log.d(TAG, "run: " + "号码=" + number + "&" + "密码=" + password);
-//                        String param = "号码=何德庆&密码=240484406";
-                    StringBuilder string = new StringBuilder();
-                    URL url = new URL("http://10.0.2.2:8000/get_data/");
-                    //打开和url的连接
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("POST");
-                    connection.setConnectTimeout(8000);
-                    connection.setReadTimeout(8000);
+                    String url = "http://10.0.2.2:8000/get_data/";
 
-                    //POST请求必须设置这两个属性
-                    connection.setDoOutput(true);
-                    connection.setDoInput(true);
-
-                    //获取HttpURLConnection对象的输出流
-                    PrintWriter printWriter = new PrintWriter(connection.getOutputStream());
-                    printWriter.print(param);
-                    //flush输出流的缓冲
-                    printWriter.flush();
-                    InputStream inputStream = connection.getInputStream();
-
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        string.append(line);
-                    }
-                     JSONObject jsonObject2 = new JSONObject(string.toString());
-                        JSONObject classjson = jsonObject2.getJSONObject("stata");//获取JSON对象中的JSON
-                        status = classjson.getString("status");
-                        Log.d("status：", classjson.getString("status"));
-
+                    result = HttpUtils.sendPostRequest(url, param);
+//                    String param = "号码=何德庆&密码=240484406";
+                    JSONArray jsonArray = new JSONArray(result);
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("fields");
+                    my_username = jsonObject1.getString("username");
+                    my_avator = jsonObject1.getString("picture");
+                    my_dynamic = jsonObject1.getString("dynamic");
+                    my_gender = jsonObject1.getString("gender");
+                    my_number = jsonObject1.getString("number");
+                    my_password = jsonObject1.getString("password");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 Message message =  new Message();
                 message.what =1;
                 Bundle bundle = new Bundle();
-                bundle.putString("status",status);
+                bundle.putString("my_username",my_username);
+                bundle.putString("my_avator",my_avator);
+                bundle.putString("my_dynamic",my_dynamic);
+                bundle.putString("my_gender",my_gender);
+                bundle.putString("my_number",my_number);
+                bundle.putString("my_password",my_number);
                 message.setData(bundle);
                 handler.sendMessage(message);
             }
@@ -254,9 +258,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Handler handler = new Handler() {
         public void handleMessage(final Message msg) {
             if (msg.what == 1) {
-                status = msg.getData().getString("status");
-                Log.d(TAG, "handleMessage status: "+status);
-                if (status.equals("1")) {
+                my_number= msg.getData().getString("my_number");
+                my_username= msg.getData().getString("my_username");
+                my_dynamic= msg.getData().getString("my_dynamic");
+                my_gender= msg.getData().getString("my_gender");
+                my_avator= msg.getData().getString("my_avator");
+                my_password= msg.getData().getString("my_password");
+
+                if (my_number!=null) {
+                    Map<String, String> map = new HashMap<String, String>(); //本地保存数据
+                    map.put("number",number);
+                    map.put("username",my_username);
+                    map.put("dynamic",my_dynamic);
+                    map.put("gender",my_gender);
+                    map.put("avator",my_avator);
+                    map.put("password",my_password);
+                    SaveUtils.saveSettingNote(LoginActivity.this, "userInfo",map);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -278,25 +295,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
 
-//        private void showResquesPonse(final String response){
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    JSONObject jsonObject2 = null;//创建JSON对象
-//                    try {
-//                        jsonObject2 = new JSONObject(response);
-//                        JSONObject classjson = jsonObject2.getJSONObject("stata");//获取JSON对象中的JSON
-//                        status = classjson.getString("status");
-//                        Log.d("status：", classjson.getString("status"));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//        }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
+    /**
+     * 将字符串数据保存到本地
+     * @param context 上下文
+     * @param filename 生成XML的文件名
+     * @param  map <生成XML中每条数据名,需要保存的数据>
+     */
+    public static void saveSettingNote(Context context,String filename ,Map<String, String> map) {
+        SharedPreferences.Editor note = context.getSharedPreferences(filename, Context.MODE_PRIVATE).edit();
+        Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();
+            note.putString(entry.getKey(), entry.getValue());
+        }
+        note.commit();
     }
 }

@@ -6,6 +6,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.BROADCAST_SMS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -19,7 +26,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".modules.Team.WebActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".modules.Team.WebActivity" />
         <activity android:name=".modules.Recommend_fragment.Inside.ConcreteRecommendContest" />
         <activity android:name=".modules.Message.ChatActivity" />
         <activity android:name=".SignUpActivity" />
@@ -31,8 +39,8 @@
         <activity android:name=".modules.Team.Inside_activity.ClassificationActivity" />
         <activity android:name=".modules.Message.TeamList" />
         <activity android:name=".modules.Message.MessageActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

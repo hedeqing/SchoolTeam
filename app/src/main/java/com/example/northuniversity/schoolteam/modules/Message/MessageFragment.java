@@ -31,7 +31,7 @@ public class MessageFragment extends BaseFragment {
         if (mView == null) {
             // 需要inflate一个布局文件 填充Fragment
             mView = inflater.inflate(R.layout.fragment_meaasge, container, false);
-            initView();
+//            initView();
             isPrepared = true;
 //        实现懒加载
             lazyLoad();
@@ -50,7 +50,7 @@ public class MessageFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         messageTb = getActivity().findViewById(R.id.message_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(messageTb);
-        chatTv = getActivity().findViewById(R.id.chat_tv);
+//        chatTv = getActivity().findViewById(R.id.chat_tv);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -58,21 +58,21 @@ public class MessageFragment extends BaseFragment {
         }
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);//设置返回键可用，如果某个页面想隐藏掉返回键比如首页，可以调用mToolbar.setNavigationIcion(null);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        chatTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(),ChatActivity.class);
-                startActivity(intent);
-            }
-        });
+//        chatTv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(),ChatActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     /**
      * 初始化控件
      */
-    private void initView() {
-        chatTv = getActivity().findViewById(R.id.chat_tv);
-    }
+//    private void initView() {
+//        chatTv = getActivity().findViewById(R.id.chat_tv);
+//    }
 
     @Override
     public void lazyLoad() {

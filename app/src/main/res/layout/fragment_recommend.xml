@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".modules.Recommend.RecommendActivity">
+    >
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/recommend_fragment_xrv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="scrollable" />
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:background="@color/colorblue"-->
-        <!--android:layout_height="1dp"/>-->
-  <!---->
 
     <View
         android:layout_width="match_parent"

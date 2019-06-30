@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.northuniversity.schoolteam.R;
+import com.example.northuniversity.schoolteam.modules.Message.ChatActivity;
+import com.example.northuniversity.schoolteam.modules.Person.PersonMessageActivity;
 import com.example.northuniversity.schoolteam.modules.Team.Inside_activity.ConcreteActivity;
 import com.shehuan.niv.NiceImageView;
 import com.youth.banner.Banner;
@@ -124,6 +126,21 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
                 mContext.startActivity(intent);
             }
         });
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PersonMessageActivity.class);
+//                intent.putExtra("")
+                mContext.startActivity(intent);
+            }
+        });
+        holder.teamChatTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ChatActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -137,6 +154,9 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
         private  TextView locationTv = null;
         private TextView timeTv = null;
         private CardView cardViewTeam = null;
+        private  NiceImageView imageView = null;
+        private TextView teamChatTv = null;
+
 
         //在这里实现view的添加，其实在别的地方能全部添加，但是需要添加具体一边以后能实现监控
         private RecyclerHolder(View itemView) {
@@ -146,6 +166,8 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
             locationTv = itemView.findViewById(R.id.location_tv);
             timeTv = itemView.findViewById(R.id.time_tv);
             cardViewTeam = itemView.findViewById(R.id.card_view_team);
+            imageView = itemView.findViewById(R.id.team_person);
+            teamChatTv = itemView.findViewById(R.id.team_chat);
         }
     }
 

@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:leon="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:leon="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".modules.Person.PersonActivity">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/colorPrimaryDark"-->
-        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-        <!--&gt;-->
-    <!--</android.support.v7.widget.Toolbar>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -29,60 +20,192 @@
             android:id="@+id/profile_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/ic_person"
-            app:civ_border_color="#FFFFFF"
             android:rotation="0"
+            android:src="@drawable/a"
+            app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
-                android:layout_marginLeft="90dp"
+                android:id="@+id/person_name"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:padding="10dp"
-                android:text="郑豪"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="center"
-                android:textSize="20dp"
-                android:text="18406587432"/>
+                android:text="郑豪"
+                android:textSize="20sp" />
+
         </LinearLayout>
     </LinearLayout>
 
 
-    <com.leon.lib.settingview.LSettingItem
-        android:id="@+id/item_one"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        leon:leftIcon="@drawable/ic_person"
-        leon:leftText="签名" />
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    <com.leon.lib.settingview.LSettingItem
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        leon:leftIcon="@drawable/ic_person"
-        leon:leftText="好友" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
-    <com.leon.lib.settingview.LSettingItem
-        android:id="@+id/item_five"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        leon:leftIcon="@drawable/ic_person"
-        leon:leftText="修改个人信息" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_dynamic" />
 
-    <com.leon.lib.settingview.LSettingItem
-        android:id="@+id/item_six"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme"
-        leon:leftIcon="@drawable/ic_person"
+            <TextView
+                android:layout_width="wrap_content"
 
-        leon:leftText="安全" />
-    <!--leon:rightStyle="iconSwitch"-->
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="动态"
+                android:textSize="20sp" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/dynamic_person"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:text="暂时没有动态"
+                android:background="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_gender" />
+
+            <TextView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="性别"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/gender_person"
+                android:layout_marginLeft="100dp"
+                android:gravity="right"
+                android:text="女"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_phone_numbers" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="号码"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/number_person"
+                android:layout_marginLeft="100dp"
+                android:gravity="right"
+                android:text="0000000000"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/white">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/person_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_change" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="修改信息"
+                android:textSize="20sp" />
+            <ImageButton
+                android:layout_marginLeft="250dp"
+                android:layout_gravity="right"
+                android:background="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_right"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--<com.leon.lib.settingview.LSettingItem-->
+    <!--android:id="@+id/item_one"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--leon:leftIcon="@drawable/ic_person"-->
+    <!--leon:leftText="" />-->
+
+    <!--<com.leon.lib.settingview.LSettingItem-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--leon:leftIcon="@drawable/ic_person"-->
+    <!--leon:leftText="性别" />-->
+
+    <!--<com.leon.lib.settingview.LSettingItem-->
+    <!--android:id="@+id/item_five"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--leon:leftIcon="@drawable/ic_person"-->
+    <!--leon:leftText="号码" />-->
+
+    <!--<LinearLayout-->
+    <!--android:background="@color/white"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<com.leon.lib.settingview.LSettingItem-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:id="@+id/item_six"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:theme="@style/AppTheme"-->
+    <!--leon:leftIcon="@drawable/ic_person"-->
+    <!--leon:leftText="修改信息" />-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>

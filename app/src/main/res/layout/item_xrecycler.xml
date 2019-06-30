@@ -35,10 +35,10 @@
                     android:orientation="horizontal">
 
                     <com.shehuan.niv.NiceImageView
+
                         android:id="@+id/team_person"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-
                         android:src="@drawable/ic_person"
                         app:border_color="#FFFFFF"
                         app:border_width="2dp"
@@ -78,6 +78,7 @@
                             android:src="@drawable/ic_circle"/>
 
                         <TextView
+                            android:id="@+id/team_chat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"

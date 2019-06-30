@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -23,7 +24,7 @@ public class ConcreteActivity extends AppCompatActivity {
     private  TextView timeTv = null;
     private  TextView locationTv = null;
     private  TextView fareTv = null;
-
+    private Button joinBtn = null;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -37,6 +38,13 @@ public class ConcreteActivity extends AppCompatActivity {
         timeTv = findViewById(R.id.time_team);
         locationTv = findViewById(R.id.location_team);
         fareTv = findViewById(R.id.fare_team);
+
+        joinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         Intent intent = getIntent();
         descriptionTv.setText(intent.getStringExtra("title"));
