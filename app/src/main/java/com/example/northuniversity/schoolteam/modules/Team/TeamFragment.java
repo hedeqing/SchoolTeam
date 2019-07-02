@@ -129,11 +129,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
         mRecyclerView.getDefaultRefreshHeaderView() // get default refresh header view
                 .setRefreshTimeVisible(true);  // make refresh time visible,false means hiding
 
-        Log.d(ContentValues.TAG, "111: idList" + team_id);
-        Log.d(ContentValues.TAG, "111: startTime" + start_time);
-        Log.d(ContentValues.TAG, "111: endTime" + end_time);
-        Log.d(ContentValues.TAG, "111: category" + category);
-        mAdapter = new RecommendTeamAdapter(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity, getContext());
+        mAdapter = new RecommendTeamAdapter(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity,capture, getContext());
 
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview_header, (ViewGroup) mRecyclerView.getParent(), false);
         initView(header);
@@ -153,7 +149,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.setData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity);
+                        mAdapter.setData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity,capture);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.refreshComplete();
                     }
@@ -166,8 +162,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.setData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity);
-
+                        mAdapter.setData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity,capture);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.loadMoreComplete();
                     }
@@ -218,7 +213,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://10.0.2.2:8000/get_team/";
+                String url = "http://192.168.137.1:8000/get_team/";
                 result = HttpUtils.sendPostRequest(url, null);
                 Message message = new Message();
                 message.what = 3;
@@ -228,7 +223,6 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
                 handler.sendMessage(message);
             }
         }).start();
-
     }
 
     Handler handler = new Handler() {
@@ -263,7 +257,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
                         end_time_i.add(jsonObject1.getString("end_time"));
                         location_i.add(jsonObject1.getString("location"));
                         fare_i.add(jsonObject1.getString("fare"));
-                        capture_i.add(jsonObject1.getString("team_id_id"));
+                        capture_i.add(jsonObject1.getString("team_id"));
                         favor_quantity_i.add(jsonObject1.getString("favor_quantity"));
                     }
                     team_id = team_i;
@@ -292,14 +286,14 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
 
     };
 
-    private List<String> testList() {
-        List<String> mytest = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            mytest.add("test" + System.currentTimeMillis());
-        }
-        mytest.add("test" + System.currentTimeMillis());
-        return mytest;
-    }
+//    private List<String> testList() {
+//        List<String> mytest = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            mytest.add("test" + System.currentTimeMillis());
+//        }
+//        mytest.add("test" + System.currentTimeMillis());
+//        return mytest;
+//    }
 
     @Override
     public void onStart() {

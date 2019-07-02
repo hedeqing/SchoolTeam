@@ -119,7 +119,7 @@ public class ReleaseActivity extends AppCompatActivity  {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://10.0.2.2:8000/release_team/";
+                String url = "http://192.168.137.1:8000/release_team/";
                 String params = "team_id="+team_id_id+"&"+"description=" + description + "&" + "startTime=" + startTime + "&" + "endTime=" + endTime + "&" + "location=" + location +"&"+ "fareDescription=" + fareDescription +"&"+"category="+category;
                 result = HttpUtils.sendPostRequest(url, params);
 
@@ -170,8 +170,6 @@ public class ReleaseActivity extends AppCompatActivity  {
                     });
                     builder.show();
                 }
-
-
             }
         }
     };

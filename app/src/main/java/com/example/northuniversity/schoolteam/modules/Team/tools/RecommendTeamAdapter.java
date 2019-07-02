@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.northuniversity.schoolteam.R;
@@ -16,7 +15,6 @@ import com.example.northuniversity.schoolteam.modules.Message.ChatActivity;
 import com.example.northuniversity.schoolteam.modules.Person.PersonMessageActivity;
 import com.example.northuniversity.schoolteam.modules.Team.Inside_activity.ConcreteActivity;
 import com.shehuan.niv.NiceImageView;
-import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +34,11 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
     private List<String> location = new ArrayList<>();
     private List<String> fare = new ArrayList<>();
     private List<String> favor_quantity = new ArrayList<>();
+    private  List<String> catpure = new ArrayList<>();
+
     private Context mContext;
 
-    public RecommendTeamAdapter(List<String> team_id, List<String> menber_id, List<String> menber_quantity, List<String> category, List<String> description, List<String> team_picture, List<String> start_time, List<String> end_time, List<String> location, List<String> fare, List<String> favor_quantity, Context mContext) {
+    public RecommendTeamAdapter(List<String> team_id, List<String> menber_id, List<String> menber_quantity, List<String> category, List<String> description, List<String> team_picture, List<String> start_time, List<String> end_time, List<String> location, List<String> fare, List<String> favor_quantity,List<String> capture, Context mContext) {
         this.team_id = team_id;
         this.menber_id = menber_id;
         this.menber_quantity = menber_quantity;
@@ -51,6 +51,7 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
         this.fare = fare;
         this.favor_quantity = favor_quantity;
         this.mContext = mContext;
+        this.catpure = capture;
     }
     public void addtData(List<String> team_id, List<String> menber_id, List<String> menber_quantity, List<String> category, List<String> description, List<String> team_picture, List<String> start_time, List<String> end_time, List<String> location, List<String> fare, List<String> favor_quantity) {
         if (null != team_id) {
@@ -69,7 +70,7 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
         }
     }
 
-    public void setData(List<String> team_id, List<String> menber_id, List<String> menber_quantity, List<String> category, List<String> description, List<String> team_picture, List<String> start_time, List<String> end_time, List<String> location, List<String> fare, List<String> favor_quantity) {
+    public void setData(List<String> team_id, List<String> menber_id, List<String> menber_quantity, List<String> category, List<String> description, List<String> team_picture, List<String> start_time, List<String> end_time, List<String> location, List<String> fare, List<String> favor_quantity, List<String> capture) {
         if (null != team_id) {
             this.category.clear();
             this.description.clear();
@@ -82,6 +83,7 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
             this.fare.clear();
             this.start_time.clear();
             this.team_id.clear();
+            this.catpure.clear();
 
             this.category.addAll(category);
             this.description.addAll(description);
@@ -94,6 +96,8 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
             this.team_id.addAll(team_id);
             this.team_picture.addAll(team_picture);
             this.menber_quantity.addAll(menber_quantity);
+            this.catpure.addAll(capture);
+
             notifyDataSetChanged();
         }
     }
@@ -109,7 +113,7 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
         Log.d(TAG, "onBindViewHolder: team_id"+team_id.get(position));
         Log.d(TAG, "onBindViewHolder: description"+description.get(position));
         Log.d(TAG, "onBindViewHolder: location"+location.get(position));
-        holder.nameTv.setText(team_id.get(position));
+        holder.nameTv.setText(catpure.get(position));
         holder.titleTv.setText(description.get(position));
         holder.locationTv.setText(location.get(position));
         holder.timeTv.setText(start_time.get(position)+"到"+end_time.get(position));
@@ -123,6 +127,8 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
                 intent.putExtra("location",location.get(position));
                 intent.putExtra("time",start_time.get(position)+"-"+end_time.get(position));
                 intent.putExtra("fare",fare.get(position));
+                intent.putExtra("team_id",team_id.get(position));
+
                 mContext.startActivity(intent);
             }
         });
@@ -130,6 +136,7 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, PersonMessageActivity.class);
+                intent.putExtra("capture",catpure.get(position));
 //                intent.putExtra("")
                 mContext.startActivity(intent);
             }
@@ -138,6 +145,7 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ChatActivity.class);
+                intent.putExtra("room",team_id.get(position));
                 mContext.startActivity(intent);
             }
         });
@@ -168,7 +176,14 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
             cardViewTeam = itemView.findViewById(R.id.card_view_team);
             imageView = itemView.findViewById(R.id.team_person);
             teamChatTv = itemView.findViewById(R.id.team_chat);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
         }
+
     }
 
 }

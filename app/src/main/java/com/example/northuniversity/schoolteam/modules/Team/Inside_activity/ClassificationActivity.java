@@ -140,15 +140,10 @@ public class ClassificationActivity extends AppCompatActivity {
         tabName.add("       学习      ");
         tabName.add("       出行     ");
         tabName.add("       比赛      ");
-
         fAdapter = new FragmentAdapter(getSupportFragmentManager(), list_fragment, tabName);
-
         viewPager.setAdapter(fAdapter);
-
         //将tabLayout与viewpager连起来
         tabLayout.setupWithViewPager(viewPager);
         Log.i(TAG, "fragmentChange: is evoke");
     }
-
-
 }

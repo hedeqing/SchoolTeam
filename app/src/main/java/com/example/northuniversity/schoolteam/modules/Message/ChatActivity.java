@@ -1,9 +1,11 @@
 package com.example.northuniversity.schoolteam.modules.Message;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,12 +20,16 @@ import android.widget.Toast;
 import com.example.northuniversity.schoolteam.Bean.PersonChat;
 import com.example.northuniversity.schoolteam.R;
 import com.example.northuniversity.schoolteam.modules.Message.adapter.ChatAdapter;
+import com.example.northuniversity.schoolteam.utils.HttpUtils;
+import com.example.northuniversity.schoolteam.utils.SaveUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,146 +39,224 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.zip.Inflater;
 
 public class ChatActivity extends AppCompatActivity {
 
     private  static Logger logger = (Logger) Logger.getLogger(String.valueOf(WebSocketClient.class));
-    private  static  String TAG = "MainActivity";
-    private  String status;
+    private  static  String TAG = "ChatActivity";
     private Button sendBtn = null;
-    private EditText textEt = null;
     private  String text ;
-    private TextView showTv = null;
+
+
+
+    private String result;
 
     private WebSocketClient client = null;
 
-    private ChatAdapter chatAdapter;
-    /**
-     * 声明ListView
-     */
-    private ListView lv_chat_dialog;
-    /**
-     * 集合
-     */
-    private List<PersonChat> personChats = new ArrayList<PersonChat>();
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            int what = msg.what;
-            switch (what) {
-                case 1:
-                    /**
-                     * ListView条目控制在最后一行
-                     */
-                    lv_chat_dialog.setSelection(personChats.size());
-                    break;
+    private  List<String>  contents = new ArrayList<>();
+    private  List<String> rooms = new ArrayList<>();
+    private  List<String> fromNames = new ArrayList<>();
 
-                default:
-                    break;
-            }
-        };
-    };
+    private ChatAdapter chatAdapter;
+    private  EditText et_chat_message;
+
+    private ListView lv_chat_dialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_chat);
-        Intent intent =new Intent();
         sendBtn = findViewById(R.id.btn_chat_message_send);
-
-        for (int i = 0; i <= 3; i++) {
-            PersonChat personChat = new PersonChat();
-            personChat.setMeSend(false);
-            personChats.add(personChat);
-        }
         lv_chat_dialog = (ListView) findViewById(R.id.lv_chat_dialog);
-        Button btn_chat_message_send = (Button) findViewById(R.id.btn_chat_message_send);
-        final EditText et_chat_message = (EditText) findViewById(R.id.et_chat_message);
-        /**
-         *setAdapter
-         */
-        chatAdapter = new ChatAdapter(this, personChats);
-        lv_chat_dialog.setAdapter(chatAdapter);
-        /**
-         * 发送按钮的点击事件
-         */
-//        btn_chat_message_send.setOnClickListener(new View.OnClickListener() {
-//
-//
-//            @SuppressLint("WrongConstant")
-//            @Override
-//            public void onClick(View arg0) {
-//                // TODO Auto-generated method stub
-//                if (TextUtils.isEmpty(et_chat_message.getText().toString())) {
-//                    Toast.makeText(ChatActivity.this, "发送内容不能为空", 0).show();
-//                    return;
-//                }
-//                PersonChat personChat = new PersonChat();
-//                //代表自己发送
-//                personChat.setMeSend(true);
-//                //得到发送内容
-//                personChat.setChatMessage(et_chat_message.getText().toString());
-//                //加入集合
-//                personChats.add(personChat);
-//                //清空输入框
-//                et_chat_message.setText("");
-//                //刷新ListView
-//                chatAdapter.notifyDataSetChanged();
-//                handler.sendEmptyMessage(1);
-//            }
-//        });
-//    }
+        et_chat_message = (EditText) findViewById(R.id.et_chat_message);
 
+
+        chatAdapter = new ChatAdapter(getApplicationContext(),contents,fromNames,rooms);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                text = textEt.getText().toString().trim();
+
+                text = et_chat_message.getText().toString().trim();
                 final Gson gson = new Gson();
                 com.example.northuniversity.schoolteam.Bean.Message message = new com.example.northuniversity.schoolteam.Bean.Message();
                 message.setMessage(text);
-                String json = gson.toJson(message);
-                try {
-                    client = new WebSocketClient(new URI("ws://10.0.2.2:8000/ws/chat/lobby/"), new Draft_6455()) {
-                        @Override
-                        public void onOpen(ServerHandshake handshakedata) {
-                            logger.info("握手成功");
-                        }
-
-                        @Override
-                        public void onMessage(String message) {
-                            System.out.println("received message: " + message);
-                            try {
-                                message.getBytes(message);
-                                System.out.println(message);
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-                            if (message.equals("over")) {
-                                client.close();
-                            }
-                        }
-
-                        @Override
-                        public void onClose(int code, String reason, boolean remote) {
-                            logger.info("链接已关闭");
-                        }
-
-                        @Override
-                        public void onError(Exception ex) {
-                            logger.info("发送错误已关闭");
-                        }
-                    };
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-                client.connect();
-                logger.info(String.valueOf(client.getDraft()));
-                while (!client.getReadyState().equals(WebSocketClient.READYSTATE.OPEN)) {
-                    logger.info("正在连接");
-                }
+                message.setFromName(SaveUtils.getSettingNote(ChatActivity.this,"userInfo","username"));
+                message.setRoom("1");
+                final String json = gson.toJson(message);
+//                try {
+//                    client = new WebSocketClient(new URI("ws://192.168.137.1:8000/ws/chat/lobby/"), new Draft_6455()) {
+//                        @Override
+//                        public void onOpen(ServerHandshake handshakedata) {
+//                            logger.info("握手成功");
+//                        }
+//                        @Override
+//                        public void onMessage(final String message) {
+//
+//                            final List<String>  contents = new ArrayList<>();
+//                            final List<String> rooms = new ArrayList<>();
+//                            final List<String> fromNames = new ArrayList<>();
+//                            System.out.println(message);
+//                            try {
+//                                final JSONObject jsonObject = new JSONObject(message);
+//                                Log.d(TAG, "onMessage: 信息:"+jsonObject.getString("message"));
+//                                Log.d(TAG, "onMessage: 来自于"+jsonObject.getString("fromName"));
+//                                Log.d(TAG, "onMessage: 房间号"+jsonObject.getString("room"));
+//
+//                                contents.add(jsonObject.getString("message"));
+//                                fromNames.add(jsonObject.getString("fromName"));
+//                                rooms.add(jsonObject.getString("room"));
+//                                Log.d(TAG, "onMessage: data"+contents.size());
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        chatAdapter.setData(contents,fromNames,rooms);
+//                                        lv_chat_dialog.setAdapter(chatAdapter);
+//                                        chatAdapter.notifyDataSetInvalidated();
+//                                        lv_chat_dialog.smoothScrollToPosition(contents.size()-1);
+//                                    }
+//                                });
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            if (message.equals("over")) {
+//                                client.close();
+//                            }
+//                        }
+//                        @Override
+//                        public void onClose(int code, String reason, boolean remote) {
+//                            logger.info("链接已关闭");
+//                        }
+//
+//                        @Override
+//                        public void onError(Exception ex) {
+//                            logger.info("发送错误已关闭");
+//                        }
+//                    };
+//                } catch (URISyntaxException e) {
+//                    e.printStackTrace();
+//                }
+//                client.connect();
+//                logger.info(String.valueOf(client.getDraft()));
+//                while (!client.getReadyState().equals(WebSocketClient.READYSTATE.OPEN)) {
+//                    logger.info("正在连接");
+//                }
                 client.send(json);
-                textEt.setText("");
+//                getMessage();
+                et_chat_message.setText("");
             }
         });
     }
+    public void getMessage(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String url = "http://10.0.2.2:8000/get_message/";
+                result = HttpUtils.sendPostRequest(url, null);
+                Message message = new Message();
+                message.what = 10;
+                Bundle bundle = new Bundle();
+                bundle.putString("result", result);
+                message.setData(bundle);
+                handler.sendMessage(message);
+            }
+        }).start();
+    }
+    Handler handler = new Handler() {
+        public void handleMessage(final Message message) {
+            List<String> messages = new ArrayList<>();
+            List<String> room = new ArrayList<>();
+            List<String> fromName = new ArrayList<>();
+            if (message.what == 10) {
+                result = message.getData().getString("result");
+                try {
+                    JSONArray jsonArray = new JSONArray(result);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("fields");
+                        messages.add(jsonObject1.getString("content"));
+                        room.add(jsonObject1.getString("room"));
+                        fromName.add(jsonObject1.getString("fromName"));
+                    }
+                    contents = messages;
+                    fromNames = fromName;
+                    rooms = room;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    };
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            client = new WebSocketClient(new URI("ws://192.168.137.1:8000/ws/chat/lobby/"), new Draft_6455()) {
+                @Override
+                public void onOpen(ServerHandshake handshakedata) {
+                    logger.info("握手成功");
+                }
+                @Override
+                public void onMessage(final String message) {
+
+                    final List<String>  contents = new ArrayList<>();
+                    final List<String> rooms = new ArrayList<>();
+                    final List<String> fromNames = new ArrayList<>();
+                    System.out.println(message);
+                    try {
+                        final JSONObject jsonObject = new JSONObject(message);
+                        Log.d(TAG, "onMessage: 信息:"+jsonObject.getString("message"));
+                        Log.d(TAG, "onMessage: 来自于"+jsonObject.getString("fromName"));
+                        Log.d(TAG, "onMessage: 房间号"+jsonObject.getString("room"));
+
+                        contents.add(jsonObject.getString("message"));
+                        fromNames.add(jsonObject.getString("fromName"));
+                        rooms.add(jsonObject.getString("room"));
+                        Log.d(TAG, "onMessage: data"+contents.size());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                chatAdapter.setData(contents,fromNames,rooms);
+                                lv_chat_dialog.setAdapter(chatAdapter);
+                                chatAdapter.notifyDataSetInvalidated();
+                                lv_chat_dialog.smoothScrollToPosition(contents.size()-1);
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (message.equals("over")) {
+                        client.close();
+                    }
+                }
+                @Override
+                public void onClose(int code, String reason, boolean remote) {
+                    logger.info("链接已关闭");
+                }
+
+                @Override
+                public void onError(Exception ex) {
+                    logger.info("发送错误已关闭");
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        client.connect();
+        logger.info(String.valueOf(client.getDraft()));
+        while (!client.getReadyState().equals(WebSocketClient.READYSTATE.OPEN)) {
+            logger.info("正在连接");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }

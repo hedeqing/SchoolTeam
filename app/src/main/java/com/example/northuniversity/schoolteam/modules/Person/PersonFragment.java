@@ -108,10 +108,12 @@ public class PersonFragment extends BaseFragment {
         name =getActivity().findViewById(R.id.person_name);
         dynamicTv = getActivity().findViewById(R.id.dynamic_person);
         genderTv = getActivity().findViewById(R.id.gender_person);
+        numberTv = getActivity().findViewById(R.id.number_person);
 
         name.setText(username);
         dynamicTv.setText(dynamic);
         genderTv.setText(gender);
+        numberTv.setText(number);
         cardView = getActivity().findViewById(R.id.person_cardview);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +161,7 @@ public class PersonFragment extends BaseFragment {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String url = "http://10.0.2.2:8000/update/";
+                    String url = "http://192.168.137.1:8000/update/";
                     String params = "oldPassword="+oldpassword+"&"+"newPassword="+newPassword+"&"+"new_gender="+new_gender+"&"+"new_dynamic="+new_dynamic+"&"+"new_name="+new_name+"&"+"old_number="+old_number+"&"+"new_number="+new_number;
                     Log.d(TAG, "run: gender = "+gender);
 
@@ -201,6 +203,15 @@ public class PersonFragment extends BaseFragment {
                     map.put("gender",msg.getData().getString("gender"));
                     map.put("password",msg.getData().getString("password"));
                     SaveUtils.saveSettingNote(getContext(), "userInfo",map);
+                    AlertDialog.Builder builder  = new AlertDialog.Builder(getContext());
+                    builder.setTitle("恭喜" ) ;
+                    builder.setMessage("修改成功" ) ;
+                    builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    builder.show();
                 } else {
                     AlertDialog.Builder builder  = new AlertDialog.Builder(getContext());
                     builder.setTitle("警告" ) ;

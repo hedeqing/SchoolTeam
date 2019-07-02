@@ -4,16 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/tv_chat_me_message"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_toLeftOf="@+id/iv_chat_imagr_right"
-        android:background="@color/colorPrimary"
-        android:padding="8dp"
-        android:text="把那些贩毒的关到小黑屋，枪毙五十次，快去" />
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="昵称"
+            android:id="@+id/chat_name_right"
+            android:layout_marginLeft="270dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_chat_me_message_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/iv_chat_imagr_right"
+            android:background="@color/colorPrimary"
+            android:padding="8dp"
+            android:text="没有文字" />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/iv_chat_imagr_right"

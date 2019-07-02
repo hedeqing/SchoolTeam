@@ -146,7 +146,7 @@ public class ThirdFragment extends BaseFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://10.0.2.2:8000/show_recommend/";
+                String url = "http://192.168.137.1:8000/show_recommend/";
                 String params = "education=" + education;
                 Log.d(TAG, "run: education = " + education);
                 result = HttpUtils.sendPostRequest(url, params);

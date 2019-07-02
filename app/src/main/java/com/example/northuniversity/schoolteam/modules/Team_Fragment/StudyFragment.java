@@ -1,7 +1,6 @@
 package com.example.northuniversity.schoolteam.modules.Team_Fragment;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,21 +14,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.northuniversity.schoolteam.R;
 import com.example.northuniversity.schoolteam.base.BaseFragment;
 
-import com.example.northuniversity.schoolteam.modules.Team.Inside_activity.ClassificationActivity;
-import com.example.northuniversity.schoolteam.modules.Team.Inside_activity.ReleaseActivity;
-import com.example.northuniversity.schoolteam.modules.Team.tools.GlideImageLoader;
 import com.example.northuniversity.schoolteam.modules.Team.tools.RecommendTeamAdapter;
 import com.example.northuniversity.schoolteam.utils.HttpUtils;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
 
 import org.json.JSONArray;
@@ -39,8 +32,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class StudyFragment extends BaseFragment {
     private boolean isPrepared;
@@ -73,6 +64,8 @@ public class StudyFragment extends BaseFragment {
     private List<String> location = new ArrayList<>();
     private List<String> fare = new ArrayList<>();
     private List<String> favor_quantity = new ArrayList<>();
+    private  List<String> capture = new ArrayList<>();
+
 
 
     public List<Integer> images = new ArrayList<>();
@@ -130,7 +123,7 @@ public class StudyFragment extends BaseFragment {
         Log.d(ContentValues.TAG, "111: startTime" + start_time);
         Log.d(ContentValues.TAG, "111: endTime" + end_time);
         Log.d(ContentValues.TAG, "111: category" + category);
-        mAdapter = new RecommendTeamAdapter(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity, getContext());
+        mAdapter = new RecommendTeamAdapter(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity,capture, getContext());
 
 //        mAdapter.addtData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity);
 
@@ -147,7 +140,7 @@ public class StudyFragment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.setData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity);
+                        mAdapter.setData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity, capture);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.refreshComplete();
                     }
@@ -160,7 +153,7 @@ public class StudyFragment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.setData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity);
+                        mAdapter.setData(team_id, menber_id, menber_quantity, category, description, team_picture, start_time, end_time, location, fare, favor_quantity, capture);
 
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.loadMoreComplete();
@@ -180,7 +173,7 @@ public class StudyFragment extends BaseFragment {
             @Override
             public void run() {
                 String param = "category="+category;
-                String url = "http://10.0.2.2:8000/get_team_by_category/";
+                String url = "http://192.168.137.1:8000/get_team_by_category/";
                 result = HttpUtils.sendPostRequest(url, param);
                 Message message = new Message();
                 message.what = 6;
@@ -206,6 +199,8 @@ public class StudyFragment extends BaseFragment {
             List<String> location_i = new ArrayList<>();
             List<String> fare_i = new ArrayList<>();
             List<String> favor_quantity_i = new ArrayList<>();
+
+            List<String> capture_i = new ArrayList<>();
             if (message.what == 6) {
                 result = message.getData().getString("result");
 
@@ -225,6 +220,8 @@ public class StudyFragment extends BaseFragment {
                         location_i.add(jsonObject1.getString("location"));
                         fare_i.add(jsonObject1.getString("fare"));
                         favor_quantity_i.add(jsonObject1.getString("favor_quantity"));
+
+                        capture_i.add(jsonObject1.getString("team_id"));
                     }
                     team_id = team_i;
                     menber_id = menber_i;
@@ -237,6 +234,7 @@ public class StudyFragment extends BaseFragment {
                     location = location_i;
                     fare = fare_i;
                     favor_quantity = favor_quantity_i;
+                    capture = capture_i;
 
                     Log.d(ContentValues.TAG, "run: idList" + team_id);
                     Log.d(ContentValues.TAG, "run: startTime" + start_time);

@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String my_gender;
     private  String my_number;
     private  String my_password;
+    private String my_id;
 
 
     private String TAG = "LoginACtivity";
@@ -83,9 +84,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
-
         initView();
     }
 
@@ -224,16 +224,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try {
                     int c;
                     String param = "号码=" + number + "&" + "密码=" + password;
-                    String url = "http://10.0.2.2:8000/get_data/";
+                    String url = "http://192.168.137.1:8000/get_data/";
 
                     result = HttpUtils.sendPostRequest(url, param);
 //                    String param = "号码=何德庆&密码=240484406";
                     JSONArray jsonArray = new JSONArray(result);
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    my_id = jsonObject.getString("pk");
+                    Log.d(TAG, "run: my_id"+my_id);
                     JSONObject jsonObject1 = jsonObject.getJSONObject("fields");
                     my_username = jsonObject1.getString("username");
                     my_avator = jsonObject1.getString("picture");
                     my_dynamic = jsonObject1.getString("dynamic");
+
+
                     my_gender = jsonObject1.getString("gender");
                     my_number = jsonObject1.getString("number");
                     my_password = jsonObject1.getString("password");
@@ -249,6 +253,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 bundle.putString("my_gender",my_gender);
                 bundle.putString("my_number",my_number);
                 bundle.putString("my_password",my_number);
+                bundle.putString("my_id",my_id);
                 message.setData(bundle);
                 handler.sendMessage(message);
             }
@@ -264,9 +269,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 my_gender= msg.getData().getString("my_gender");
                 my_avator= msg.getData().getString("my_avator");
                 my_password= msg.getData().getString("my_password");
-
+                my_id = msg.getData().getString("my_id");
                 if (my_number!=null) {
                     Map<String, String> map = new HashMap<String, String>(); //本地保存数据
+                    map.put("id",my_id);
                     map.put("number",number);
                     map.put("username",my_username);
                     map.put("dynamic",my_dynamic);

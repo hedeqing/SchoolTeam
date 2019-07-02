@@ -106,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://10.0.2.2:8000/sign_up/";
+                String url = "http://192.168.137.1:8000/sign_up/";
                 String params = "name="+name+"&"+"password="+password+"&"+"number="+number+"&"+"gender="+gender;
                 Log.d(TAG, "run: gender = "+gender);
                 result  = HttpUtils.sendPostRequest(url,params);

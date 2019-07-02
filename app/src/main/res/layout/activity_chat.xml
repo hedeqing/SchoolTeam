@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/badge_corner_radius"
         android:layout_weight="1"
-        android:background="@drawable/b"
         android:orientation="vertical"
         android:padding="8dp" >
 

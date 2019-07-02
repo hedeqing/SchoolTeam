@@ -130,5 +130,5 @@
         android:layout_height="1dp"
         android:layout_marginLeft="1dp"
         android:layout_marginTop="0dp"
-        android:background="@color/titleBlue"></View>
+        android:background="#6495ED"></View>
 </LinearLayout>
