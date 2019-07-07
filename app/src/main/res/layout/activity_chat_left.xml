@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivicon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="top"
+            android:src="@drawable/b" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chat_name_left"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="昵称" />
+
+        <TextView
+            android:id="@+id/tv_chat_me_message_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/color_primary_green"
+            android:padding="8dp"
+            android:text="没有文字" />
+    </LinearLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/tv_chat_me_message_left"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:padding="8dp"-->
+    <!--android:background="@color/color_primary_green"-->
+    <!--android:text="没有文字" />-->
+
+</LinearLayout>
