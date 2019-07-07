@@ -216,4 +216,6 @@ public class HttpUtils {
         resultData = new String(byteArrayOutputStream.toByteArray());
         return resultData;
     }
+
+
 }

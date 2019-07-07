@@ -1,11 +1,15 @@
 package com.example.northuniversity.schoolteam.modules.Team;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +58,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
     private TextView titleTv = null;
     private SearchView headeSv = null;
     private Button sendBtn = null;
+    private TextView searchTv= null;
 
     public TextView textView;
     public Banner banner = null;
@@ -115,6 +120,13 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if(ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new
+                    String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        } else {
+        }
+
         show_team();
         mRecyclerView = getActivity().findViewById(R.id.recyclerview);
         //  XRecyclerView的使用，和RecyclerView几乎一致
@@ -186,6 +198,12 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
                 startActivity(intent);
             }
         });
+        searchTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),SearchActivity.class));
+            }
+        });
 
 
     }
@@ -200,6 +218,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
         studyView = header.findViewById(R.id.iv_study);
         banner = header.findViewById(R.id.banner);
 
+        searchTv = getActivity().findViewById(R.id.search);
         gameView.setOnClickListener(this);
         travalView.setOnClickListener(this);
         contestiew.setOnClickListener(this);
@@ -215,6 +234,7 @@ public class TeamFragment extends BaseFragment implements View.OnClickListener, 
             public void run() {
                 String url = "http://192.168.137.1:8000/get_team/";
                 result = HttpUtils.sendPostRequest(url, null);
+                Log.d(TAG, "run: 11111111"+result);
                 Message message = new Message();
                 message.what = 3;
                 Bundle bundle = new Bundle();

@@ -5,67 +5,68 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout
+    android:layout_marginRight="100dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.shehuan.niv.NiceImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_person"
-        app:border_color="#FFFFFF"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="185dp"
-        app:border_width="2dp"
-        app:is_circle="true"
-        app:is_cover_src="true" />
+    <!--<com.shehuan.niv.NiceImageView-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:src="@drawable/ic_person"-->
+        <!--app:border_color="#FFFFFF"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginLeft="185dp"-->
+        <!--app:border_width="2dp"-->
+        <!--app:is_circle="true"-->
+        <!--app:is_cover_src="true" />-->
 
-</LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <com.shehuan.niv.NiceImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="60dp"
-            android:src="@drawable/ic_person"
-            app:border_color="#FFFFFF"
-            app:border_width="2dp"
-            app:is_circle="true"
-            app:is_cover_src="true" />
-        <com.shehuan.niv.NiceImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="60dp"
-            android:src="@drawable/ic_person"
-            app:border_color="#FFFFFF"
-            app:border_width="2dp"
-            app:is_circle="true"
-            app:is_cover_src="true" />
-        <com.shehuan.niv.NiceImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="60dp"
-            android:src="@drawable/ic_person"
-            app:border_color="#FFFFFF"
-            app:border_width="2dp"
-            app:is_circle="true"
-            app:is_cover_src="true" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <com.shehuan.niv.NiceImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="190dp"
-            android:src="@drawable/ic_person"
-            app:border_color="#FFFFFF"
-            app:border_width="2dp"
-            app:is_circle="true"
-            app:is_cover_src="true" />
+<!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<com.shehuan.niv.NiceImageView-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_marginLeft="60dp"-->
+            <!--android:src="@drawable/ic_person"-->
+            <!--app:border_color="#FFFFFF"-->
+            <!--app:border_width="2dp"-->
+            <!--app:is_circle="true"-->
+            <!--app:is_cover_src="true" />-->
+        <!--<com.shehuan.niv.NiceImageView-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_marginLeft="60dp"-->
+            <!--android:src="@drawable/ic_person"-->
+            <!--app:border_color="#FFFFFF"-->
+            <!--app:border_width="2dp"-->
+            <!--app:is_circle="true"-->
+            <!--app:is_cover_src="true" />-->
+        <!--<com.shehuan.niv.NiceImageView-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_marginLeft="60dp"-->
+            <!--android:src="@drawable/ic_person"-->
+            <!--app:border_color="#FFFFFF"-->
+            <!--app:border_width="2dp"-->
+            <!--app:is_circle="true"-->
+            <!--app:is_cover_src="true" />-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<com.shehuan.niv.NiceImageView-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="190dp"-->
+            <!--android:src="@drawable/ic_person"-->
+            <!--app:border_color="#FFFFFF"-->
+            <!--app:border_width="2dp"-->
+            <!--app:is_circle="true"-->
+            <!--app:is_cover_src="true" />-->
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="20dp"

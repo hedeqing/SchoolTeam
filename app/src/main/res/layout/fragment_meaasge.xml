@@ -14,7 +14,7 @@
           android:layout_width="match_parent"
           android:layout_height="50dp"
           android:text="我的队伍"
-          android:textSize="30sp" />
+          android:textSize="20sp" />
   </LinearLayout>
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/message_xrv"

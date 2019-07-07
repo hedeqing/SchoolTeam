@@ -2,6 +2,7 @@ package com.example.northuniversity.schoolteam.modules.Team.Inside_activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -42,6 +44,9 @@ public class ConcreteActivity extends AppCompatActivity {
     private String result;
     private String my_id;
     private String status;
+    private String team_picture;
+    private ImageView team_pictureImageView = null;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -57,6 +62,7 @@ public class ConcreteActivity extends AppCompatActivity {
         locationTv = findViewById(R.id.location_team);
         fareTv = findViewById(R.id.fare_team);
         joinBtn = findViewById(R.id.join_team);
+        team_pictureImageView = findViewById(R.id.first_show_team);
 
         Intent intent = getIntent();
         descriptionTv.setText(intent.getStringExtra("title"));
@@ -65,6 +71,9 @@ public class ConcreteActivity extends AppCompatActivity {
         locationTv.setText(intent.getStringExtra("location"));
         fareTv.setText(intent.getStringExtra("fare"));
         team_id = intent.getStringExtra("team_id");
+        team_picture = intent.getStringExtra("team_picture");
+
+        team_pictureImageView.setImageBitmap(BitmapFactory.decodeFile(team_picture));
         toolbar = findViewById(R.id.concrete_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

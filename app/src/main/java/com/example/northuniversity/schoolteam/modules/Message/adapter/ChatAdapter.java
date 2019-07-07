@@ -55,6 +55,17 @@ public class ChatAdapter  extends BaseAdapter {
             notifyDataSetChanged();
         }
     }
+    public void addData(List<String> contents, List<String> fromNames, List<String> rooms) {
+        if (null != contents) {
+            this.contents.clear();
+            this.contents.addAll(contents);
+            this.rooms.clear();
+            this.rooms.addAll(rooms);
+            this.fromName.clear();
+            this.fromName.addAll(fromNames);
+            notifyDataSetChanged();
+        }
+    }
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
@@ -82,9 +93,10 @@ public class ChatAdapter  extends BaseAdapter {
      */
     public int getItemViewType(int position) {
 //        PersonChat entity = lists.get(position);
+        String myname = SaveUtils.getSettingNote(context,"userInfo","username");
         String name = fromName.get(position);
         Log.d(TAG, "getItemViewType: name receive"+name);
-        if (name=="何德庆") {// 收到的消息
+        if (name==myname) {// 收到的消息
             return IMsgViewType.IMVT_COM_MSG;
         } else {// 自己发送的消息
             return IMsgViewType.IMVT_TO_MSG;

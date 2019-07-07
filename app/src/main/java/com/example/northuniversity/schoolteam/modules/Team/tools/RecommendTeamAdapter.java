@@ -2,12 +2,15 @@ package com.example.northuniversity.schoolteam.modules.Team.tools;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.northuniversity.schoolteam.R;
@@ -116,6 +119,7 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
         holder.nameTv.setText(catpure.get(position));
         holder.titleTv.setText(description.get(position));
         holder.locationTv.setText(location.get(position));
+        holder.imageView.setImageBitmap(BitmapFactory.decodeFile(team_picture.get(position)));
         holder.timeTv.setText(start_time.get(position)+"到"+end_time.get(position));
         holder.cardViewTeam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,19 +132,19 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
                 intent.putExtra("time",start_time.get(position)+"-"+end_time.get(position));
                 intent.putExtra("fare",fare.get(position));
                 intent.putExtra("team_id",team_id.get(position));
-
+                intent.putExtra("team_picture",team_picture.get(position));
                 mContext.startActivity(intent);
             }
         });
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, PersonMessageActivity.class);
-                intent.putExtra("capture",catpure.get(position));
-//                intent.putExtra("")
-                mContext.startActivity(intent);
-            }
-        });
+//        holder.team_person.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, PersonMessageActivity.class);
+//                intent.putExtra("capture",catpure.get(position));
+////                intent.putExtra("")
+//                mContext.startActivity(intent);
+//            }
+//        });
         holder.teamChatTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +154,6 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return team_id.size();
@@ -162,8 +165,9 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
         private  TextView locationTv = null;
         private TextView timeTv = null;
         private CardView cardViewTeam = null;
-        private  NiceImageView imageView = null;
+        private ImageView imageView = null;
         private TextView teamChatTv = null;
+        private ImageView team_person = null;
 
 
         //在这里实现view的添加，其实在别的地方能全部添加，但是需要添加具体一边以后能实现监控
@@ -174,8 +178,9 @@ public class RecommendTeamAdapter extends RecyclerView.Adapter<RecommendTeamAdap
             locationTv = itemView.findViewById(R.id.location_tv);
             timeTv = itemView.findViewById(R.id.time_tv);
             cardViewTeam = itemView.findViewById(R.id.card_view_team);
-            imageView = itemView.findViewById(R.id.team_person);
+            imageView = itemView.findViewById(R.id.team_picture);
             teamChatTv = itemView.findViewById(R.id.team_chat);
+//            team_person = itemView.findViewById(R.id.team_person);
             new Thread(new Runnable() {
                 @Override
                 public void run() {

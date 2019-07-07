@@ -8,41 +8,58 @@
     tools:context=".modules.Team.TeamActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:background="#D1EEEE"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/team_fragment_header_title_tv"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="24sp"
+            android:textSize="20sp"
+            android:textColor="#242424"
+            android:layout_marginLeft="20dp"
             android:gravity="center"
             android:text="中北大学"/>
-        <SearchView
-            android:layout_marginLeft="10dp"
-            android:layout_width="200dp"
-            android:id="@+id/team_fragment_header_titlt_sv"
-            android:layout_height="50dp"
-            android:layout_below="@+id/input_layout"
+        <TextView
+            android:id="@+id/search"
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginTop="0dip"
+            android:layout_marginTop="2dip"
             android:background="@drawable/text_bg"
             android:gravity="center"
             android:paddingBottom="2dip"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
             android:paddingTop="2dip"
-            android:outlineAmbientShadowColor="@color/color_shadow"
-            android:text="Login"
-            android:textSize="20sp">
-        </SearchView>
+            android:text="search"
+            android:textSize="20sp" />
+        <!--<SearchView-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_width="200dp"-->
+            <!--android:id="@+id/team_fragment_header_titlt_sv"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_below="@+id/input_layout"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_marginTop="0dip"-->
+            <!--android:background="@drawable/text_bg"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingBottom="2dip"-->
+            <!--android:paddingLeft="15dip"-->
+            <!--android:paddingRight="15dip"-->
+            <!--android:paddingTop="2dip"-->
+            <!--android:outlineAmbientShadowColor="@color/color_shadow"-->
+            <!--android:textSize="15sp">-->
+        <!--</SearchView>-->
         <Button
-            android:background="#F0FFFF"
+
+            android:background="	#40E0D0"
             android:id="@+id/team_fragment_header_title_btn"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="50dp"
             android:textSize="20sp"
             android:text="发布"
-
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout

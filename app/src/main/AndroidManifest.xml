@@ -13,6 +13,7 @@
     <uses-permission
         android:name="android.permission.BROADCAST_SMS"
         tools:ignore="ProtectedPermissions" />
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -22,7 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".modules.Team.SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
         <activity android:name=".modules.Team.WebActivity" />
         <activity android:name=".modules.Recommend_fragment.Inside.ConcreteRecommendContest" />
         <activity android:name=".SignUpActivity" />
@@ -33,12 +35,13 @@
         <activity android:name=".modules.Team.Inside_activity.ConcreteActivity" />
         <activity android:name=".modules.Team.Inside_activity.ClassificationActivity" />
         <activity android:name=".modules.Message.TeamList" />
-        <activity android:name=".modules.Message.ChatActivity"/>
+        <activity android:name=".modules.Message.ChatActivity" />
         <activity android:name=".modules.Message.MessageActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

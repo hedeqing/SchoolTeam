@@ -15,12 +15,13 @@
             android:id="@+id/concrete_contest_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_shadow"
+            android:background="#FCFCFC"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
     </LinearLayout>
 
     <ScrollView
+        android:background="#FCFCFC"
         android:layout_width="match_parent"
         android:layout_height="500dp">
 
@@ -42,12 +43,13 @@
     </ScrollView>
 
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/send_recommend_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/color_shadow"
+        android:background="	#BBFFFF"
         android:text="发布组队"
-        android:textColor="@color/titleBlue" />
+     />
 
 </LinearLayout>

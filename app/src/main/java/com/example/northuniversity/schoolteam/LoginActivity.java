@@ -270,6 +270,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 my_avator= msg.getData().getString("my_avator");
                 my_password= msg.getData().getString("my_password");
                 my_id = msg.getData().getString("my_id");
+
                 if (my_number!=null) {
                     Map<String, String> map = new HashMap<String, String>(); //本地保存数据
                     map.put("id",my_id);

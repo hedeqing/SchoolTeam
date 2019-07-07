@@ -32,7 +32,7 @@
         android:orientation="horizontal">
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="2dp"
             android:layout_height="40dp"
             android:layout_marginLeft="1dp"
             android:background="#00FF7F"
@@ -77,13 +77,15 @@
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:layout_width="80dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:id="@+id/iv_study"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginLeft="1dp"
                     android:background="@drawable/study"
                     android:layout_height="80dp" />
                 <ImageView
-                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="2dp"
                     android:layout_width="wrap_content"
                     android:id="@+id/iv_traval"
                     android:background="@drawable/traval"

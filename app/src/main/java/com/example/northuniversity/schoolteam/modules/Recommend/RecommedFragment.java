@@ -1,5 +1,7 @@
 package com.example.northuniversity.schoolteam.modules.Recommend;
 
+import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -119,7 +121,7 @@ public class RecommedFragment extends BaseFragment {
         viewPager = getActivity().findViewById(R.id.viewPager);
         mRecyclerView = getActivity().findViewById(R.id.recommend_fragment_xrv);
         //为tabLayout上的图标赋值
-        tabImg = new int[]{R.drawable.ic_code, R.drawable.ic_code, R.drawable.ic_code, R.drawable.ic_code};
+        tabImg = new int[]{R.drawable.ic_study, R.drawable.ic_study, R.drawable.ic_study, R.drawable.ic_study};
         Log.i(TAG, "initControls: is evoke");
 
     }
@@ -193,6 +195,7 @@ public class RecommedFragment extends BaseFragment {
         fAdapter = new FragmentAdapter(getChildFragmentManager(), list_fragment, tabName);
 
         viewPager.setAdapter(fAdapter);
+
 
         //将tabLayout与viewpager连起来
         tabLayout.setupWithViewPager(viewPager);

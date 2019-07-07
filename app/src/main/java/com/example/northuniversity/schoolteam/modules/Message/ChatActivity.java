@@ -47,6 +47,7 @@ public class ChatActivity extends AppCompatActivity {
     private  static  String TAG = "ChatActivity";
     private Button sendBtn = null;
     private  String text ;
+    private String room ;
 
 
 
@@ -73,8 +74,10 @@ public class ChatActivity extends AppCompatActivity {
         lv_chat_dialog = (ListView) findViewById(R.id.lv_chat_dialog);
         et_chat_message = (EditText) findViewById(R.id.et_chat_message);
 
+        room = getIntent().getStringExtra("room");
 
-        chatAdapter = new ChatAdapter(getApplicationContext(),contents,fromNames,rooms);
+        Log.d(TAG, "onCreate: room"+room);
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +87,7 @@ public class ChatActivity extends AppCompatActivity {
                 com.example.northuniversity.schoolteam.Bean.Message message = new com.example.northuniversity.schoolteam.Bean.Message();
                 message.setMessage(text);
                 message.setFromName(SaveUtils.getSettingNote(ChatActivity.this,"userInfo","username"));
-                message.setRoom("1");
+                message.setRoom(room);
                 final String json = gson.toJson(message);
 //                try {
 //                    client = new WebSocketClient(new URI("ws://192.168.137.1:8000/ws/chat/lobby/"), new Draft_6455()) {
@@ -150,12 +153,13 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-    public void getMessage(){
+    public void getMessage(final String room){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://10.0.2.2:8000/get_message/";
-                result = HttpUtils.sendPostRequest(url, null);
+                String url = "http://192.168.137.1:8000/get_message/";
+                String params = "room="+room;
+                result = HttpUtils.sendPostRequest(url, params);
                 Message message = new Message();
                 message.what = 10;
                 Bundle bundle = new Bundle();
@@ -194,8 +198,14 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        room = getIntent().getStringExtra("room");
+        getMessage(room);
+        chatAdapter = new ChatAdapter(getApplicationContext(),contents,fromNames,rooms);
+        chatAdapter.setData(contents,fromNames,rooms);
+        lv_chat_dialog.setAdapter(chatAdapter);
+        chatAdapter.notifyDataSetChanged();
         try {
-            client = new WebSocketClient(new URI("ws://192.168.137.1:8000/ws/chat/lobby/"), new Draft_6455()) {
+            client = new WebSocketClient(new URI("ws://192.168.137.1:8000/ws/chat/"+room+"/"), new Draft_6455()) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     logger.info("握手成功");
@@ -223,7 +233,7 @@ public class ChatActivity extends AppCompatActivity {
                                 chatAdapter.setData(contents,fromNames,rooms);
                                 lv_chat_dialog.setAdapter(chatAdapter);
                                 chatAdapter.notifyDataSetInvalidated();
-                                lv_chat_dialog.smoothScrollToPosition(contents.size()-1);
+                                lv_chat_dialog.smoothScrollToPosition(chatAdapter.getCount() - 1);//移动到尾部
                             }
                         });
                     } catch (JSONException e) {
